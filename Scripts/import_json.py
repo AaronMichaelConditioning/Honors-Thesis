@@ -14,7 +14,7 @@ for line in tweets_file:
         tweets_data.append(tweet)
     except:
         continue
-print len(tweets_data)
+#print len(tweets_data)
 tweets = pd.DataFrame()
 
 tweets['text'] = map(lambda tweet: tweet['text'], tweets_data)
@@ -36,6 +36,18 @@ numTweets = len(tweets_data)
 def calcPercentage(num, numTweets):
 	percent = num/numTweets*100
 	return percent
+
+def getText():
+	for index, row in tweets.iterrows():
+		print row['text']
+
+def getCountry():
+	for index, row in tweets.iterrows():
+		print row['country']
+
+def getLang():
+	for index, row in tweets.iterrows():
+		print row['lang']
 
 """
 for i in len(tweets_data):
@@ -65,6 +77,9 @@ for index, row in tweets.iterrows():
 	else:
 		numOther = numOther + 1
 
+
+
+
 percentEn = calcPercentage(numEn, numTweets)
 percentEs = calcPercentage(numEs, numTweets)
 percentEt = calcPercentage(numEt, numTweets)
@@ -72,15 +87,16 @@ percentFr = calcPercentage(numFr, numTweets)
 percentUnd = calcPercentage(numUnd, numTweets)
 percentOther = calcPercentage(numOther, numTweets)
 
-
+"""
 print "Percent of Tweets in English: ", percentEn,"%"
 print "Percent of Tweets in Spanish: ", percentEs,"%"
 print "Percent of Tweets in Estonian: ", percentEt,"%"
 print "Percent of Tweets in French: ", percentFr,"%"
 print "Percent of Tweets in Undetermined: ", percentUnd,"%"
 print "Percent of Tweets in Other: ", percentOther,"%"
+"""
 
-
+### TODO Tweets by Language ###
 
 tweets_by_lang = tweets['lang'].value_counts()
 
@@ -92,6 +108,9 @@ ax.set_ylabel('Number of tweets' , fontsize=15)
 ax.set_title('Top 5 languages', fontsize=15, fontweight='bold')
 tweets_by_lang[:5].plot(ax=ax, kind='bar', color='red')
 
+
+### TODO Tweets by Country ###
+
 tweets_by_country = tweets['country'].value_counts()
 
 fig, ax = plt.subplots()
@@ -101,6 +120,21 @@ ax.set_xlabel('Countries', fontsize=15)
 ax.set_ylabel('Number of tweets' , fontsize=15)
 ax.set_title('Top 5 countries', fontsize=15, fontweight='bold')
 tweets_by_country[:5].plot(ax=ax, kind='bar', color='blue')
+
+
+choice = input("Enter a data request (1=text, 2=language, 3=country): ")
+if choice == 1:
+	getText()
+elif choice == 2:
+	getLang()
+elif choice == 3:
+	getCountry()
+else:
+	print "Error: Invalid Input, Run Again"
+
+
+
+
 
 
 
